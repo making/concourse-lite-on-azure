@@ -1,0 +1,6 @@
+env_id = "changeme" # alphanumeric
+region = "Japan East"
+subscription_id = "changeme"
+tenant_id = "changeme"
+client_id = "changeme"
+client_secret = "changeme"
