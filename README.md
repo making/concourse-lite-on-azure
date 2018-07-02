@@ -32,3 +32,13 @@ EOF
 ```
 fly -t lite login -k -c $CONCOURSE_URL -u admin -p $ADMIN_PASSWORD
 ```
+
+```
+cat <<EOF > ssh-concourse.sh
+bosh int concourse-creds.yml --path /jumpbox_ssh/private_key > ${target}.pem
+chmod 600 concourse.pem
+
+ssh -o "StrictHostKeyChecking=no" jumpbox@$(cat terraform.tfstate | jq -r '.modules[0].outputs.external_ip.value') -i $(pwd)/concourse.pem
+EOF
+chmod +x ssh-concourse.sh
+```
