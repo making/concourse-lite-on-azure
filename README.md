@@ -19,9 +19,16 @@ terraform apply plan
 ```
 
 ```
+CONCOURSE_URL=https://$(cat terraform.tfstate | jq -r '.modules[0].outputs.external_ip.value')
+ADMIN_PASSWORD=$(bosh int concourse-creds.yml --path /admin_password)
+
 cat <<EOF
-url: https://$(cat terraform.tfstate | jq -r '.modules[0].outputs.external_ip.value')
+url: $CONCOURSE_URL
 username: admin
-password: $(bosh int concourse-creds.yml --path /admin_password)
+password: $ADMIN_PASSWORD
 EOF
+```
+
+```
+fly -t lite login -k -c $CONCOURSE_URL -u admin -p $ADMIN_PASSWORD
 ```
