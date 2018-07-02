@@ -1,5 +1,6 @@
 concourse-state.json
 concourse-creds.yml
+concourse.pem
 terraform.tfvars
 terraform.tfstate
 .terraform
