@@ -19,5 +19,9 @@ terraform apply plan
 ```
 
 ```
-echo "Go to https://$(cat terraform.tfstate | jq -r '.modules[0].outputs.external_ip.value')"
+cat <<EOF
+url: https://$(cat terraform.tfstate | jq -r '.modules[0].outputs.external_ip.value')
+username: admin
+password: $(bosh int concourse-creds.yml --path /admin_password)
+Eof
 ```
